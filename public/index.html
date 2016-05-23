@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- não basta importar o arquivo que gerencia os módulos, você deve também declarar quem vai usar eles dentro do html através da diretiva ng-app -->
+<html lang="pt-br" ng-app="imagelovers">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>imagelovers</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <script src=js/lib/angular.min.js></script>
+        <script src=js/main.js></script>
+        <script src=js/controllers/ctrl-pictures.js></script>
+        <script src=js/directives/image-panel.js></script>        
+    </head>
+    <body ng-controller="PicturesController">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="text-center">imagelovers</h1>
+            </div>
+            <!-- o primeiro valor no ng-repeat é pra identificar o primeiro item da lista
+            <div ng-repeat="picture in pictures" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{picture.titulo}}</h3>
+                </div>
+                <div class="panel-body">
+                    view com lacunas significa que tenho um template 
+                    <img class="img-responsive center-block" src="{{picture.url}}" alt="{{picture.titulo}}" title="{{picture.titulo}}">
+                </div>
+            </div>
+            -->
+            
+            <image-panel ng-repeat="picture in pictures" titulo="{{picture.titulo}}">
+                <img class="img-responsive center-block" src="{{picture.url}}" alt="{{picture.titulo}}" title="{{picture.titulo}}">
+            </image-panel>
+
+        </div> <!-- fim container -->
+    </body>
+</html>
