@@ -33,6 +33,9 @@ angular.module('imagelovers').controller('PicturesController', function ($scope,
     //solicite do backend a lista de fotos que você precisa acessar, geralmente um json (array javascript)
     //get para obter informações do servidor, se eu quiser enviar é post, apagar: delete, atualizar: put
     $scope.pictures = [];
+    
+    //filtro com uma string em branco
+    $scope.pesquisa = '';
 
     //$http é uma requisição assíncrona, você não sabe quando ela vai terminar e ele te devolve uma promessa, uma promisse
     //$http diz que se conseguir retornar os dados do servidor (promise) ele te retorna os dados do servidor
