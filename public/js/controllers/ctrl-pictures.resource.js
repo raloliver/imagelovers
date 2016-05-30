@@ -1,17 +1,16 @@
-angular.module('imagelovers').controller('PicturesController', function ($scope, pictureResource){
+angular.module('imagelovers').controller('PicturesController', function ($scope, pictureResources){
     $scope.pictures = [];
     $scope.pesquisa = '';
     $scope.message = '';
+    var pictureResource = $resource('v1/fotos/:pictureId');
     
-    //primeiro parâmetro: função se obteve sucesso na consulta, o segundo o erro (assim como no $http)
     pictureResource.query(function (pictures){
         $scope.pictures = pictures;
     }, function (erro) {
         console.log(erro)
-    });   
+    });
     
     $scope.deletePic = function (picture) {
-        //no primeiro parametro recebe o que será apagado (em formato de objeto)
         pictureResource.delete({pictureId: picture._id}, function(){
             var index = $scope.pictures.indexOf(picture);
             $scope.pictures.splice(index, 1);            
@@ -19,6 +18,6 @@ angular.module('imagelovers').controller('PicturesController', function ($scope,
         }, function(erro){
             console.log(erro);
             $scope.message = 'Não foi possível apagar a foto '+picture.titulo;
-        });
+        });     
     };
 });

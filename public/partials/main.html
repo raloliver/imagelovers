@@ -1,0 +1,25 @@
+<div class="jumbotron">
+    <h1 class="text-center">imagelovers</h1>
+</div>
+<p ng-show="message.length" class="alert alert-success">{{message}}</p>
+<div class="row well-lg">
+    <div class="col-md-12">
+        <form action="">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a href="pictures/new"class="btn btn-primary">Enviar Foto</a>
+                </span>
+                <input class="form-control" type="text" placeholder="digite aqui o nome da imagem" ng-model="pesquisa" ng-model-options="{debounce: 500}">
+            </div>
+        </form>
+    </div> <!--fim da coluna-->
+</div><!--fim da linha-->
+<div class="row">   
+<image-panel class="col-md-2 animate-panel" ng-repeat="picture in pictures | filter: pesquisa" titulo="{{picture.titulo}}">
+    <my-picture url="{{picture.url}}" title="{{picture.titulo}}"></my-picture>
+        <a href="/pictures/edit/{{picture._id}}" class="btn btn-warning btn-block" style="margin-top:10px;">Editar</a>
+        <!--<button ng-click="deletePic(picture)" class="btn btn-danger btn-block">Remover</button>-->
+        <!--a ideia do angular, é evitar repetição, então criamos uma diretiva para o botão, determinando a ação do mesmo-->
+        <my-button text="Remover" action="deletePic(picture)"></my-button>
+</image-panel>
+</div>

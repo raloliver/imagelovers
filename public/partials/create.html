@@ -1,0 +1,62 @@
+<div class="page-header text-center">
+    <h1>{{picture.titulo}}</h1>
+</div>
+<!--aviso de envio-->
+<p ng-show="message.length" class="alert alert-info">{{message}}</p>
+<!--antes de enviar os dados, execute a função send-->
+<!--aqui iremos usar a própria validação do angularjs, deixando de lado a validação da API HTML5-->
+<!--para desabilitar a validação do html5, use o novalidate-->
+<!--para names, utilize sempre o padrão camelcase-->
+<form name="imageForm" class="row" ng-submit="send()" novalidate>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Título</label>
+            <input ng-model="picture.titulo" name="titulo" type="text" class="form-control" required ng-maxlength="20">
+            <!--aqui poderia usar a diretiva ng-show e configurar ela como true, mas posso também fazer pelo nome do formulário-->
+            <span ng-show="imageForm.$submitted && imageForm.titulo.$error.required" class="form-control alert-danger">
+                <strong>O nome da imagem é importante para a organização dos seus arquivos.</strong>
+            </span>
+            <!--validação de quantidade de caracteres-->
+            <span ng-show="imageForm.$submitted && imageForm.titulo.$error.maxlength" class="form-control alert-warning">
+                <strong>O título deve ter no máximo 20 caracteres.</strong>
+            </span>
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input ng-model="picture.url" name="url" type="url" class="form-control" required>
+            <span ng-show="imageForm.$submitted && imageForm.url.$error.required" class="form-control alert-danger">
+                <strong>A URL é essencial para que a imagem seja exibida.</strong>
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea ng-model="picture.descricao" name="descricao" type="text" class="form-control"></textarea>
+        </div>
+        <!--incluir fotos num determinado grupo-->
+        <div class="form-group">
+            <label>Grupo</label>
+            <!--a lista sera alimentada do que vier do servidor-->
+            <!--aqui usamos o ng-model para gravar o grupo escolhido-->
+            <select name="grupo" class="form-control" required 
+            ng-controller="GroupsController" 
+            ng-model="picture.grupo"
+            ng-options="grupo._id as (grupo.nome | uppercase) for grupo in grupos">
+            <!--usamos uma sintaxe parecida com a do ng-repeat, por conta de termos várias opções dentro do select-->
+            <!--aqui, preciso setar, qual o value do option e o que será exibido para o user, neste caso o nome-->
+            também é possível aplicar um filtro de uppercase do angular
+                <option value="">(selecionar)</option>
+            </select>
+            <span ng-show="imageForm.$submitted && imageForm.grupo.$error.required" class="form-control alert-danger">
+                <strong>A qual grupo (classificação) pertence a sua imagem?</strong>
+            </span>
+        </div>
+        <!--se o meu form estiver inválido, o botão de envia permanece desabilitado-->
+        <button class="btn btn-success" ng-disabled="imageForm.$invalid">
+            Salvar
+        </button>
+        <a href="/" class="btn btn-default">Voltar</a>
+    </div>
+    <div class="col-md-6">
+        <my-picture url="{{picture.url}}" title="{{picture.titulo}}"></my-picture>
+    </div>
+</form> 

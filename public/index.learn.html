@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- não basta importar o arquivo que gerencia os módulos, você deve também declarar quem vai usar eles dentro do html através da diretiva ng-app -->
+<html lang="pt-br" ng-app="imagelovers">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>imagelovers</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src=js/lib/angular.min.js></script>    
+        <script src=js/lib/angular-animate.min.js></script>    
+        <script src=js/main.js></script>
+        <script src=js/controllers/ctrl-pictures.js></script>
+        <script src=js/directives/image-panel.js></script>        
+    </head>
+    <body ng-controller="PicturesController">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="text-center">imagelovers</h1>
+            </div>
+            <!-- o primeiro valor no ng-repeat é pra identificar o primeiro item da lista
+            <div ng-repeat="picture in pictures" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{picture.titulo}}</h3>
+                </div>
+                <div class="panel-body">
+                    view com lacunas significa que tenho um template 
+                    <img class="img-responsive center-block" src="{{picture.url}}" alt="{{picture.titulo}}" title="{{picture.titulo}}">
+                </div>
+            </div>
+            -->
+            
+            <!--AE (angular express) é unidirecional, ele só coleta dados. Para enviar e receber, devo usar algo bidirecional (two-way-databind) onde eu devo usar a diretiva ng-model-->
+            <!--a diretiva ng-repeat, também me permite filtrar uma lista-->
+            <div class="row well-lg">
+                <div class="col-md-12">
+                    <form action="">
+                        <!--a medida que pesquiso o valor é atualizado em $scope que é considerado no image-panel-->
+                        <input class="form-control" type="text" placeholder="digite aqui o nome da imagem" ng-model="pesquisa" ng-model-options="{debounce: 500}">
+                    </form>
+                </div> <!--fim da coluna-->
+            </div><!--fim da linha-->
+            <div class="row">   
+            <!--o ng-repeat aplica classes nos elementos que entram ou saem da lista-->
+            <image-panel class="col-md-2 animate-panel" ng-repeat="picture in pictures | filter: pesquisa" titulo="{{picture.titulo}}">
+                <img class="img-responsive center-block" src="{{picture.url}}" alt="{{picture.titulo}}" title="{{picture.titulo}}">
+            </image-panel>
+            </div>
+
+        </div> <!-- fim container -->
+    </body>
+</html>
