@@ -49,22 +49,15 @@ angular.module('image-directives', [])
         var ddo = {};
         
         ddo.restrict = "A";
-        //para utilização do eventbus, não é necessários um scope
-        /*
+        
         ddo.scope = {
             //controller e diretiva vão trabalhar na mesma propriedade e para isso, usamos o =
             //alteração de dados bidirecional
             focused : '='
         };
-        */
         //link é o listener para saber se no controller o focus é true ou false
         //esse scope é o controle da diretiva
         ddo.link = function (scope, element) {
-            //se o evento pictureSend foi disparado, o que eu faço?
-            scope.$on('pictureSend', function(){
-               element[0].focus(); 
-            });
-            /*
             //esse scope recebe dois parâmetros, primeiro o nome e segundo uma função 
             //essa função vai ser executar quando a propriedade do meu controller for alterada
             scope.$watch('focused', function(){
@@ -75,7 +68,6 @@ angular.module('image-directives', [])
                     scope.focused = false;
                 }
             });
-            */            
         }
         
         return ddo;

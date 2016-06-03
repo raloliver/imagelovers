@@ -23,10 +23,7 @@ angular.module('imagelovers').controller('PictureController', function ($scope, 
                 if(data.include) $scope.picture = {};
                 //o focus é para informar que nessa função eu quero usar o foco
                 //o meu botão começa com focus false, mas ao enviar (send) ai sim ele é true
-                //$scope.focused = true;
-                //podemos também monitorar eventsbus com o Angular
-                //aqui, removemos este cara e colocamos ele como um serviço e não dentro do scope de uma função
-                //$scope.$broadcast('pictureSend');
+                $scope.focused = true;
             })
             .catch(function (data) {
                 $scope.message = data.message;
